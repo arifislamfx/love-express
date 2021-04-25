@@ -5,20 +5,29 @@ import CardItem from "../CardItem/CardItem";
 
 const Home = () => {
   const [users, setUsers] = useState([]);
+  const [isPanding, setPanding] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const url = "https://randomuser.me/api/?results=200";
     axios(url)
       .then((data) => {
-        console.log(data.data.results);
-        return setUsers(data.data.results);
+        setPanding(false);
+        setUsers(data.data.results);
+        setError(null);
       })
-      .catch((err) => err.message);
+      .catch((err) => {
+        setError(err.message);
+        setPanding(false);
+      });
   }, []);
   return (
     <div>
       <h1 className="text-center mt-3 mb-5">Choose your life partner.</h1>
-
+      <h3 className="text-center mt-3 lead">
+        {isPanding && <div>Loading....</div>}
+      </h3>
+      {error && <div> {error} </div>}
       <Container>
         <Row>
           {users.map((user) => (

@@ -4,6 +4,7 @@ import Contact from "./components/Contact/Contact";
 import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import NoMatch from "./components/NoMatch/NoMatch";
+import UserDetails from "./components/UserDetails/UserDetails";
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
           </Route>
           <Route path="/contact">
             <Contact />
+          </Route>
+          <Route path="/user/:id">
+            <UserDetails />
           </Route>
           <Route path="*">
             <NoMatch />

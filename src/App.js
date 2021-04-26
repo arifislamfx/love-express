@@ -21,7 +21,7 @@ function App() {
           <Route path="/contact">
             <Contact />
           </Route>
-          <Route path="/user/:id">
+          <Route path="/user/:userId">
             <UserDetails />
           </Route>
           <Route path="*">

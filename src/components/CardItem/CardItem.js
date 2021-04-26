@@ -9,13 +9,13 @@ const CardItem = (props) => {
         <Card.Img variant="top" src={picture.large} />
         <Card.Body>
           <Card.Title>
-            {name.first} {name.last}{" "}
+            {name.first} {name.last}
           </Card.Title>
           <Card.Text>
             <p> Gender: {gender} </p>
             <p> Country: {location.country} </p>
           </Card.Text>
-          <Button variant="primary">More Info</Button>
+          <Button variant="info">More Info...</Button>
         </Card.Body>
       </Card>
     </Col>

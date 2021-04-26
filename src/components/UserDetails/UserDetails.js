@@ -1,33 +1,37 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { Button } from "react-bootstrap";
+import { useHistory, useParams } from "react-router";
 
 const UserDetails = () => {
-  const [members, setMembers] = useState([]);
-  const [isPanding, setPanding] = useState(true);
-  const [error, setError] = useState(null);
-  const { id } = useParams();
+  const { userId } = useParams();
+  const [friend, setFriend] = useState([]);
+  const history = useHistory();
+
+  const [isPending, setPending] = useState(true);
   useEffect(() => {
-    const url = "https://jsonplaceholder.typicode.com/users";
+    const url = `https://jsonplaceholder.typicode.com/users/${userId}`;
     axios(url)
       .then((data) => {
-        setPanding(false);
-        setMembers(data.data);
-        setError(null);
+        setFriend(data.data);
+        setPending(false);
       })
-      .catch((err) => {
-        setError(err.message);
-        setPanding(false);
-      });
-  }, []);
+      .catch((err) => err.message);
+  }, [userId]);
+
+  const goBack = () => {
+    history.push("/about");
+  };
+
   return (
-    <div>
-      <h3 className="text-center mt-3 lead">
-        {isPanding && <div>Loading....</div>}
-      </h3>
-      {error && <div> {error} </div>}
-      <h1 className="text-center mt-5">{id} Details Coming sooon </h1>
-      <h4>{members.map((member) => member.id === id)}</h4>
+    <div className="text-center">
+      <p>Hello friends: {userId}</p>
+      {isPending && <div className="lead">Loading...</div>}
+      <h2>Name: {friend.name} </h2>
+      <h4>Email: {friend.email} </h4>
+      <h4>Website: {friend.website} </h4>
+      <h4>Phone: {friend.phone} </h4>
+      <Button onClick={() => goBack()}>Go Back</Button>
     </div>
   );
 };
